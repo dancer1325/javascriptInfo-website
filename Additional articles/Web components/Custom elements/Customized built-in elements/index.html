@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<!-- Normal script -->
+<!-- 1. via src -->
+<script src="customizeBuiltInElement.js"></script>
+<!-- 2. under <script> -->
+<!--<script>
+    class CustomizeNewBuiltINElement extends ... {
+        ...
+    }
+
+    customElements.define("...", CustomizeNewBuiltINElement, {extends: '...'});
+</script>-->
+
+<!-- Tag is the existing built-in, but you specify via is -->
+<button is="hello-button">Click me</button>
+<!-- Attributes are inherited -->
+<button is="hello-button" disabled>Click me</button>

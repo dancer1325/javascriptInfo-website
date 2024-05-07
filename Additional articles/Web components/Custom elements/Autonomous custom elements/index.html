@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<!-- Normal script -->
+<!-- 1. via src -->
+<script src="autonomousCustomElementTimeFormatted.js"></script>
+<!-- 2. under <script> -->
+<!--<script>
+    class TimeFormatted extends HTMLElement {
+
+        connectedCallback() {
+            let date = new Date(this.getAttribute('datetime') || Date.now());
+
+            this.innerHTML = new Intl.DateTimeFormat("default", {
+                year: this.getAttribute('year') || undefined,
+                month: this.getAttribute('month') || undefined,
+                day: this.getAttribute('day') || undefined,
+                hour: this.getAttribute('hour') || undefined,
+                minute: this.getAttribute('minute') || undefined,
+                second: this.getAttribute('second') || undefined,
+                timeZoneName: this.getAttribute('time-zone-name') || undefined,
+            }).format(date);
+        }
+
+    }
+
+    customElements.define("time-formatted", TimeFormatted);
+</script>-->
+
+
+<!-- Use it, after define it -->
+<!-- Assign an id -->
+<time-formatted id="elem" datetime="2019-12-01"
+                year="numeric" month="long" day="numeric"
+                hour="numeric" minute="numeric" second="numeric"
+                time-zone-name="short"
+></time-formatted>
+
+<!-- Add another script directly here
+setAttribute            comes from Element from which HTMLElement extends from -->
+<script>
+    <!-- setInterval        periodic script -->
+    setInterval(() => elem.setAttribute('datetime', new Date()), 1000);
+</script>
+
+
+<!--                                                            -->
+
+<!-- Rendering order -->
+<script src="renderingOrder.js"></script>
+
+<!-- Within the HTML element is accessed -->
+<!-- Alfred is not caught in this case -->
+<render-order>Alfred</render-order>
+
+<!-- In this one, it's caught within information -->
+<render-order-set-timeout>Alfred</render-order-set-timeout>
+
+<!-- All about outer is executed first due to nested setTimeOut -->
+<render-order-nested-set-timeout id="outer" >
+    <render-order-nested-set-timeout id="inner"></render-order-nested-set-timeout>
+</render-order-nested-set-timeout>
+
+<!-- Get access to into the custom element via attributes  -->
+<!--<render-order-observing-attributes-to-inner innerSample='inner'> Alfredo </render-order-observing-attributes-to-inner>-->
