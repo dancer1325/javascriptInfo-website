@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!-- Imported the next scripts ad modules -->
+
+<!-- Unnecessary since it's all through hello.js -->
+<!--<script type="module" src="user.js"></script>-->
+<script type="module" src="hello.js"></script>
+
+<!-- Module-level scope at HTML level -->
+<script type="module">
+    // The variable is only visible in this module script
+    let user = "John";
+
+    // It can be fixed, assigning it to a global variable
+    window.user = "John"
+</script>
+
+<script type="module">
+    // alert(user); // Error: user is not defined
+    alert(window.user)
+</script>
+

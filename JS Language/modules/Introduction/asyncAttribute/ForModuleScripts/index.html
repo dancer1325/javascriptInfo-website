@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+
+<body>
+<!--                                                    Module script                        -->
+<!-- 1. Inline -->
+    <button id="buttonDefinedBefore">Text</button>
+    <script async type="module">
+        const buttonDefinedBefore = document.getElementById('buttonDefinedBefore'); // !=null, since it's defined before
+        console.log("Internal - buttonDefinedBefore == null " + (buttonDefinedBefore == null));
+
+        const divDefinedAfterwards = document.getElementById('myDiv');
+        console.log("Internal - divDefinedAfterwards == null " + (divDefinedAfterwards == null));  // null
+        // Module scripts are deferred, but since it's async -> It's run in parallel, and once the information is got -> Script executed
+    </script>
+
+<!-- 2. External -->
+    <script async type="module" src="moduleExternalScript.js"></script>
+
+<!-- Regular script runs immediately -->
+    <script>
+    function showElement() {
+        const newDiv = document.createElement('div');
+        newDiv.id='myDiv'
+        newDiv.textContent = 'This is a dynamically created div';
+        document.body.appendChild(newDiv);
+    }
+
+    // Delay creation and appending to the document for 3 seconds (3000 milliseconds)!!!
+    setTimeout(showElement, 3000);
+    </script>
+
+
+</body>
+</html>

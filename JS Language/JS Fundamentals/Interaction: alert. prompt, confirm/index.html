@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <script>
+//                                                            alert
+            let returnedAlert = alert("Hello"); // null is returned
+            console.log("returnedAlert " + returnedAlert);
+
+//                                                            prompt
+            let returnedPrompt = prompt('How old are you?', 100);
+            console.log("returnedPrompt " + returnedPrompt);
+            let returnedPromptTwo = prompt('How old are you?'); // default value is optional
+            console.log("returnedPromptTwo " + returnedPromptTwo);
+            let returnedPromptThree = prompt('How old are you?'); // if you press to cancel button -> returned value is null
+            console.log("returnedPromptThree " + returnedPromptThree);
+
+//                                                            confirm
+            let returnedConfirm = confirm('How old are you?'); // If you press ok button  -> true is returned
+            console.log("returnedConfirm " + returnedConfirm);
+            let returnedConfirmTwo = confirm('How old are you?'); // If you press ok button  -> false is returned
+            console.log("returnedConfirmTwo " + returnedConfirmTwo);
+            let returnedConfirmThree = confirm(); // If you press ok button  -> true is returned
+        </script>
+    </body>
+</html>

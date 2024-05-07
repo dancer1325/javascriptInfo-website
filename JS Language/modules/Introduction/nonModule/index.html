@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+
+<body>
+<!-- For old browsers without compatibility for type=module         ->          It's ignored it -->
+<script type="module">
+    alert("Runs in modern browsers");
+</script>
+
+<!-- For all browsers is valid -->
+<script nomodule>
+    alert("Modern browsers know both type=module and nomodule, so skip this")
+    alert("Old browsers ignore script with unknown type=module, but execute this.");
+</script>
+</body>
+</html>

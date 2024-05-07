@@ -1,0 +1,29 @@
+<!docType html>
+<html>
+<head></head>
+
+<body>
+<!-- Module script -->
+<script type="module">
+    alert("Module script " +  (typeof button)); // object
+    // Module scripts are deferred -> the script runs after the whole page is loaded -> button is already defined
+</script>
+
+Compare to regular script below:
+
+<!-- Regular script -->
+<script>
+    alert("Regular script defined before " + (typeof button)); // undefined
+    // Regular scripts run immediately and since it's before define the button -> button not defined yet
+</script>
+
+<button id="button">Button</button>
+
+<!-- Regular script -->
+<script>
+    alert("Regular script defined after " + (typeof button)); // undefined
+    // Regular scripts run immediately, but since it's after defining the button -> button already defined yet
+</script>
+
+</body>
+</html>
