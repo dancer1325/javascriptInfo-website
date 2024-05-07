@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<button id="elem" onclick="alert('Click!');">Autoclick</button>
+<button id="elemTwo">Click manually</button>
+
+
+<script>
+    // Create a default event
+    let event = new Event("click");
+
+    // Dispatch the event via code
+    elem.dispatchEvent(event);
+    console.log("automatic dispatch - event.isTrusted " + event.isTrusted);
+
+    elemTwo.onclick = function manual(event){
+        console.log("manual dispatch - event.isTrusted " + event.isTrusted);
+    }
+</script>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<!-- 1. addEventListener(, EventListener, ) common object -->
+<input type="button" id="elem" value="Click me">
+<script>
+    let eventListenerObject = {
+        // handleEvent      event invoked once the event is listened
+        handleEvent(event) {
+            alert("addEventListener(, EventListener, ) " + event.type + " at " + event.currentTarget);
+        }
+    };
+    // EventListener objects is passed as argument
+    elem.addEventListener(
+        'click',
+        eventListenerObject
+    )
+</script>
+
+
+
+</br>
+
+
+
+<!-- 2. addEventListener(, EventListener, ) object of some class with handleEvent(event) {} -->
+<button id="elemTwo">Click me</button>
+<script>
+    // Define random class with handleEvent(event) {}
+    class Menu {
+        handleEvent(event) {
+            let eventType = event.type;
+            console.log(eventType);
+            switch(eventType) {
+                case 'mousedown':
+                    elem.innerHTML = "Mouse button pressed";
+                    break;
+                case 'mouseup':
+                    elem.innerHTML += "...and released.";
+                    break;
+            }
+        }
+    }
+
+    // class's instance
+    let menu = new Menu();
+
+    // TODO: How to make it these events to launch for a button?
+    elemTwo.addEventListener('mousedown', menu);
+    elemTwo.addEventListener('mouseup', menu);
+</script>
+
+
+
+</br>
+
+
+
+<!-- 3. addEventListener(, EventListener, ) object of some class with handleEvent(event) {}, but delegated -->
+<button id="elemThree">Click me</button>
+<script>
+    // Define random class with handleEvent(event) {}
+    class MenuTwo {
+        handleEvent(event) {
+            // mousedown -> onMousedown
+            let method = 'on' + event.type[0].toUpperCase() + event.type.slice(1);
+            console.log(method);
+            this[method](event);        // Delegate the logic
+        }
+
+        onMousedown() {
+            elem.innerHTML = "Mouse button pressed";
+        }
+
+        onMouseup() {
+            elem.innerHTML += "...and released.";
+        }
+    }
+
+    // class's instance
+    let menuTwo = new MenuTwo();
+
+    // TODO: How to make it these events to launch for a button?
+    elemThree.addEventListener('mousedown', menuTwo);
+    elemThree.addEventListener('mouseup', menuTwo);
+</script>

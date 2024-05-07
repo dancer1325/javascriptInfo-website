@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<script>
+    // Create a default event
+    let event = new Event("click");
+    console.log("event " + event + " event.type " + event.type);
+    console.log("event.bubbles " + event.bubbles + " event.cancelable " + event.cancelable);
+    console.log("event.composed " + event.composed);
+
+    // Create a customized event
+    let customEvent = new Event("click", {bubbles: true, cancelable: true, composed:true});
+    console.log("event " + customEvent + " event.type " + customEvent.type);
+    console.log("event.bubbles " + customEvent.bubbles + " event.cancelable " + customEvent.cancelable);
+    console.log("event.composed " + customEvent.composed);
+</script>

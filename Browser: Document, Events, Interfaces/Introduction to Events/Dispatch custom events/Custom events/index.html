@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+
+<body>
+
+<h1 id="elem">new CustomEvent()</h1>
+
+<script>
+    // 1. new Event()
+    let event = new Event("click", {
+        bubbles: true,
+        cancelable: true,
+        clientX: 100,   // No existing for new Event()
+        clientY: 100   // No existing for new Event()
+    });
+
+    // Undefined
+    console.log("event.clientX " + event.clientX);
+    console.log("event.clientX " + event.clientY);
+
+    // 2. new CustomEvent()
+    let customEvent = new CustomEvent("hello", {
+        bubbles: true,
+        cancelable: true,
+        detail: {               // It exists here, and a generic is accepted
+            name: "Alfredo",
+            age: 31
+        },
+        clientX: 100,   // No existing for new CustomEvent()
+        clientY: 100   // No existing for new CustomEvent()
+    });
+    // additional details come with the event to the handler
+    elem.addEventListener("hello", function(event) {
+        console.log("event.detail.name " + event.detail.name);
+        console.log("event.detail.age " + event.detail.age);
+    });
+
+    elem.dispatchEvent(customEvent);
+
+</script>
+</body>

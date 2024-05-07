@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+
+<!-- Without id, you are not able to fin via id afterwards -- No event handler on it -->
+<button>Click me</button>
+<button id="button">Click me</button>
+
+<script>
+    // Event handlers via addEventListener
+    button.addEventListener("click", () => alert("1"));
+    // Next removeEventListener doesn't fit with the previous one, because it's another function
+    button.removeEventListener("click", () => alert("1"));
+    // Event handler via DOM property
+    button.onclick = () => alert(2);
+</script>

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+
+
+<body>
+
+<!-- 1. event.stopPropagation() with just 1 event handler -->
+<!-- div onclick=""    will not be reached, because in the
+ child element has been stopped the propagation    -->
+<div onclick="alert(`the bubbling doesn't reach here`)">
+    <!-- The event handler's action is to stop the bubbling -->
+    <button onclick="event.stopPropagation()">Click me</button>
+</div>
+
+<!-- 2. event.stopPropagation() with several event handlers -->
+<!-- 2.1 event.stopPropagation() not working, since it's overwritten -->
+<div onclick="alert(`the bubbling doesn't reach here`)" >
+    <!-- The event handler's action is to stop the bubbling -->
+    <button id="button" onclick="event.stopPropagation()">Click me</button>
+</div>
+<!-- Since, the next one is overwritten the event handler via HTML attribute -> not stopped -->
+<script>
+    button.onclick = function() {
+        alert('Via DOM property');
+    };
+</script>
+
+<!-- 2.2 event.stopPropagation() working, since it's overwritten -->
+<div onclick="alert(`the bubbling doesn't reach here`)" >
+    <!-- The event handler's action is to stop the bubbling -->
+    <button id="buttonTwo" onclick="alert('Via HTML attribute')">Click me</button>
+</div>
+<!-- Since, the next one is overwritten, and it's the stopPropagation()  -> it's stopped -->
+<script>
+    buttonTwo.onclick = function(event) {
+        event.stopPropagation();
+    };
+</script>
+
+<!-- 2.3 event.stopPropagation() with different events -> Just affect to that specific one -->
+<div onclick="alert(`the bubbling doesn't reach here`)" >
+    <!-- Onblur is not stopped, since stopPropagation just stop upwards but not for rest of events -->
+    <button id="buttonThree" onclick="alert('Via HTML attribute')" onblur="alert('OnBlur via HTML attribute')">Click me</button>
+</div>
+<!-- Since, the next one is overwritten, and it's the stopPropagation()  -> it's stopped upwards -->
+<script>
+    buttonThree.onclick = function(event) {
+        event.stopPropagation();
+    };
+</script>
+
+
+<!-- 2.4 event.stopImmediatePropagation() vs event.stopPropagation() -->
+<div id="outerDiv">
+    <button id="innerButton">Click Me</button>
+</div>
+
+<script>
+    const outerDiv = document.getElementById("outerDiv");
+    const innerButton = document.getElementById("innerButton");
+
+    outerDiv.addEventListener("click", function() {
+        console.log("Outer div clicked");
+    });
+
+    <!-- Added several event handlers / same event -->
+    innerButton.addEventListener("click", function() {
+        console.log("Inner button clicked");
+        <!-- Comment or uncomment one of the next, to check the difference between
+         stopPropagation  vs  stopImmediatePropagation -->
+        //event.stopPropagation();
+        event.stopImmediatePropagation();
+        // Rest of event handlers of this event will not be executed, just this one
+        console.log("Inner button event listener finished");
+    });
+
+    innerButton.addEventListener("click", function() {
+        console.log("Second inner button click handler");
+    });
+
+    innerButton.addEventListener("click", function() {
+        console.log("Third inner button click handler");
+    });
+</script>
+
+</body>

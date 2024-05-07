@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+
+
+<!-- 2. Capturing + Bubbling phase, for all HTML elements here -->
+<form>FORM
+    <div>DIV
+        <p>P</p>
+    </div>
+</form>
+
+<script>
+    for(let elem of document.querySelectorAll('*')) {
+        elem.addEventListener("click",
+            event => trueOptions(event, elem),
+            true        // All options will be true
+        );
+        elem.addEventListener("click",
+            event => falseOptions(event, elem),
+        );
+    }
+
+    function trueOptions(event, element) {
+        console.log(`Capturing: ${element.tagName}`);
+        console.log(`event.eventPhase: ${event.eventPhase}`);
+    }
+
+    function falseOptions(event, element) {
+        console.log(`Bubbling: ${element.tagName}`);
+        console.log(`event.eventPhase: ${event.eventPhase}`);
+    }
+</script>

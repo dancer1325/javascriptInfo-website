@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<head>
+    <style>
+        /* Apply styles to the square */
+        .field {
+            width: 120px;
+            height: 120px;
+            background-color: greenyellow;
+            /*  Make the ball position relative to the field */
+            position: relative;
+            border: 10px solid black;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .ball{
+            /*  position can not be fixed, because scrolling -> ball would be moved */
+            /*position: fixed;*/
+            /*  position is absolute        to make it relative to the field */
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            fill: red;
+            /*  CSS animation for ball's movement   */
+            transition: 1s all;
+        }
+    </style>
+</head>
+
+<body style="height:2000px">
+
+    <div class="field"></div>
+    <div class="ball"></div>
+
+    <!-- TODO: How to display a cursor? Make the event handler functionality    -->
+</body>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<!-- 1.Assign an event handler via HTML attribute -->
+<!-- 1.1 Inside the event handler, ' must be used  -->
+<input value="Click me" onclick="alert('Click!')" type="button">
+<input value="Click me NO case sensitive" oNcLiCK="alert('Click!')" type="button">
+
+<!-- 1.2 Abstract by script into HTML-->
+<script>
+    function countRabbits() {
+        for(let i=1; i<=3; i++) {
+            alert("countRabbits - Rabbit number " + i);
+        }
+    }
+</script>
+<input value="Click me 2" onclick="countRabbits()" type="button">
+
+<!-- 1.3 Abstract by script imported -->
+<script src="eventHandler.js"></script>
+<input value="Click me 3" onclick="countRabbitsImported()" type="button">
+<!-- Here!!! it seems as function execution-->
+
+</br>
+
+<!-- 2.Assign an event handler via DOM property -->
+
+<input id="elem" type="button" value="Click me">
+<!-- Here!! Function declaration, not execution -->
+<script>
+    elem.onclick = function() {
+        alert('Via DOM property');
+    };
+</script>
+
+
+</br>
+
+
+<!-- 3. There is just 1! event handler / event  -->
+<!-- If several events are added -- they are overwritten -->
+<input type="button" id="elem2" onclick="alert('Overwritten event handler')" value="Click me">
+<script>
+    elem2.onclick = function() { // overwrites the existing handler
+        alert('Overwritten event handler'); // only this will be shown
+    };
+</script>

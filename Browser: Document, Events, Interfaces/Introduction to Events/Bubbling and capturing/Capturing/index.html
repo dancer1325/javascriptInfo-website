@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+
+
+<body>
+
+<!-- 1. Capturing + Bubbling phase, for a specific element -->
+<div id="outerDiv">
+    <button id="innerButton">Click Me</button>
+</div>
+
+<script>
+    const outerDiv = document.getElementById("outerDiv");
+    const innerButton = document.getElementById("innerButton");
+
+    outerDiv.addEventListener("click", function() {
+        console.log("Outer div clicked");
+    });
+
+    <!-- Added several event handlers / same event -->
+    // Event handler during capturing phase
+    innerButton.addEventListener("click",
+        function(event) {
+            console.log("Inner button clicked - Capturing phase - event.target.tagName " + event.target.tagName);
+            console.log(`event.eventPhase: ${event.eventPhase}`);
+        },
+        {
+            capture: true
+        }
+    );
+
+    // Event handler during bubbling phase
+    innerButton.addEventListener("click",
+        falseOrDefaultOptions(innerButton)
+    );
+
+    // They can be removed if you add all same arguments
+    // TODO: Why are these listener executed on the refresh of the page?
+    innerButton.removeEventListener("click",
+        falseOrDefaultOptions(innerButton)
+    );
+
+    function falseOrDefaultOptions(element) {
+        console.log(`Inner button clicked - bubbling phase - event.target.tagName: ${element.tagName}`);
+        //console.log(`event.eventPhase: ${event.eventPhase}`);
+    }
+</script>
+
+</body>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<!-- 1. Assign an event handler -->
+<!-- 1.1 If it's DOM property event handler assignment -->
+<!-- 1.1.1 Function declaration -- RIGHT!! -- -->
+<input id="elem" type="button" value="Click me">
+<script>
+    elem.onclick = function() {
+        alert('Function declaration, not execution');
+    };
+</script>
+<!-- 1.1.2 Function execution -- WRONG!! -- -->
+<!-- It will be executed immediately once the page is loaded, but not event's reaction -->
+<input id="elemTwo" type="button" value="Click me with function execution">
+<script>
+    elemTwo.onclick = function() {
+        alert('Function declaration, not execution');
+    }();
+</script>
+
+
+
+</br>
+
+
+
+<!-- 1.2 If it's HTML attribute event handler assignment -->
+<!-- 1.2.1 Function declaration -- WRONG!! -- -->
+<script src="possibleMistakes.js"></script>
+<input id="elemThree" type="button" onclick="possibleMistakes" value="HTMLAttributeEventHandler -- FunctionDeclaration -- WRONG">
+
+<!-- 1.2.2 Function execution -- RIGHT!! -- -->
+<script src="possibleMistakes.js"></script>
+<input id="elemFour" type="button" onclick="possibleMistakes()" value="HTMLAttributeEventHandler -- FunctionExecution -- RIGHT">
+
+
+</br>
+
+
+<!-- 1.3 Event handlers can not be used via `setAttribute()` -->
+<!--document.body.setAttribute('onclick', function() { alert(1) });-->
+<script>
+    // Now elemFour click event doesn't work
+    elemFour.setAttribute('onclick', function (){alert('Event handler can not be used by `setAttribute()` ')});
+    elemFour.setAttribute("value","Change Attribute")
+</script>
+
+
+</br>
+
+<!-- 1.4 DOM property event handler assignment is case-sensitive -->
+<input id="elemFive" type="button" value="Click me">
+<script>
+    // Since it's case-sensitive, this event handler doesn't work
+    elemFive.OnClick = function() {
+        alert('Case-sensitive ');
+    };
+</script>

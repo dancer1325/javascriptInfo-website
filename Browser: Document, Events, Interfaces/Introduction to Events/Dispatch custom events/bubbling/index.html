@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<div id="divId">
+    <h1 id ="elem">Hello from the script!</h1>
+</div>
+
+<script>
+    // Create new complete custom event
+    // You can only use .addEventListener as event handler, since onEvent doesn't exist
+    // 1. Source
+    elem.addEventListener("hello", function(event) {
+        console.log("h1 element - " + event.target.tagName);
+    });
+
+    // 2. Immediate parent
+    divId.addEventListener("hello", function(event) {
+        console.log("div wrapping h1 -  " + event.target.tagName);
+    });
+
+    // 3. Window.document
+    document.addEventListener("hello", function(event) {
+        console.log("Window.document " + event.target.tagName);
+    });
+
+    // Create custom event
+    // with name: hello  &  bubbles
+    let event = new Event("hello", {bubbles: true});
+    // trigger programmatically
+    elem.dispatchEvent(event);
+    console.log("manual dispatch - event.isTrusted " + event.isTrusted);
+</script>

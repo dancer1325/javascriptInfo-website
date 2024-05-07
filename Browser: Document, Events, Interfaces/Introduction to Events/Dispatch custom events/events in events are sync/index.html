@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<body>
+
+<button id="menu">Menu processed immediately</button>
+</br>
+<button id="menuTwo">Menu processed in queue - 1 option</button>
+</br>
+<button id="menuThree">Menu processed in queue - 2 option</button>
+
+<script>
+    // 1. Events dispatched during handling of outer event -> executed immediately
+    menu.onclick = function() {
+        alert("Menu processed immediately - 1 ");
+        // Dispatch an event within another event's event handler
+        menu.dispatchEvent(new CustomEvent("menu-open-immediately", {
+            bubbles: true   // Thrown up through their ancestors
+        }));
+        alert("Menu processed immediately - 2");
+    };
+    // Since the triggering is done during previous event's event handler
+    // -> it's triggered immediately, without being added to a queue
+    // Event listener is added to windows.document
+    document.addEventListener('menu-open-immediately', () => alert('Menu processed immediately - nested'));
+
+    // 2. Events dispatched during handling of outer event, but executed in queue
+    // 2.1 dispatch at the end of the outer event
+    menuTwo.onclick = function() {
+        alert("Menu processed in queue - 1 option - 1");
+        alert("Menu processed in queue - 1 option - 2");
+        // Dispatch an event within another event's event handler
+        menuTwo.dispatchEvent(new CustomEvent("menu-open-queue-1", {
+            bubbles: true   // Thrown up through their ancestors
+        }));
+    };
+    // Since the triggering is done during previous event's event handler
+    // -> it's triggered immediately, without being added to a queue, but here it's added at the end of the inner event
+    // execution
+    // Event listener is added to windows.document
+    document.addEventListener('menu-open-queue-1', () => alert('Menu processed in queue - 1 option - nested'));
+
+    // 2.2 dispatch with setTimeOut and zero delay
+    menuThree.onclick = function() {
+        alert("Menu processed in queue - 2 option - 1");
+        // Dispatch an event within another event's event handler, but with setTimeOut and zero delay
+        setTimeout(() => menuThree.dispatchEvent(new CustomEvent("menu-open-queue-2", {
+                bubbles: true   // Thrown up through their ancestors
+            }))
+        );
+        alert("Menu processed in queue - 2 option - 2");
+    };
+    // Since the triggering is done during previous event's event handler
+    // -> it's triggered immediately, without being added to a queue
+    // Event listener is added to windows.document
+    document.addEventListener('menu-open-queue-2', () => alert('Menu processed in queue - 2 option - nested'));
+</script>
+
+</body>

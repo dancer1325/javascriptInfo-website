@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+
+<body>
+
+<button id ="elem">Adjust built-in events</button>
+
+<script>
+    // 1. Adjust an existing built-in event
+    // 1.1 custom type
+    let event = new MouseEvent("clickkk", {
+        bubbles: true,
+        cancelable: true,
+        clientX: 100,
+        clientY: 100
+    });
+
+    console.log("event.clientX " + event.clientX);       // Existing for MouseEvent
+
+    elem.addEventListener("clickkk", function(event) {
+        console.log("MouseEvent - clickkk type " + event.target.tagName);
+    });
+
+    // trigger programmatically
+    elem.dispatchEvent(event);
+    console.log("manual dispatch - event.isTrusted " + event.isTrusted);
+
+    // 1.2. existing type
+    let existingTypeEvent = new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+        clientX: 100,
+        clientY: 100
+    });
+    elem.onclick =  function existingType(event) {
+        console.log("manual dispatch - event.isTrusted " + event.isTrusted);
+    };
+
+</script>
+</body>

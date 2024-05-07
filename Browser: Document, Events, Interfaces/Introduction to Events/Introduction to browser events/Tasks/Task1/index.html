@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<div id="textdiv1">Text1</div>
+<div id="textdiv2">Text2</div>
+<input value="Click me NO case sensitive" onclick="hideDiv()" type="button">
+<!-- Event handler via HTML attribute -->
+<script>
+    function hideDiv() {
+        // Ways to get access to the HTML element
+        // 1. By id directly
+        textdiv1.hidden = true;
+        // 2. Via document.getElementById
+        document.getElementById('textdiv2').hidden=true;
+    }
+</script>

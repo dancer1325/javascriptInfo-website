@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<body>
+
+<pre id="rabbit">
+  |\   /|
+   \|_|/
+   /. .\
+  =\_Y_/=
+   {>o<}
+</pre>
+<button onclick="hide()">Hide()</button>
+
+<script>
+    function hide() {
+        let event = new CustomEvent("hide", {
+            cancelable: true // without that flag preventDefault doesn't work
+        });
+
+        // .dispatchEvent() 's returned value depends on
+        // event.cancelable = true
+        // event.preventDefault()       is invoked
+        let returnedDispatchEvent = rabbit.dispatchEvent(event);
+
+        // It's executed after addEventListener()
+        console.log("returnedDispatchEvent " + returnedDispatchEvent);
+        if (!returnedDispatchEvent) {
+            alert('The action was prevented by a handler');
+        } else {
+            rabbit.hidden = true;
+        }
+    }
+
+    rabbit.addEventListener('hide', function(event) {
+        if (confirm("Call preventDefault?")) {
+            event.preventDefault();
+        }
+    });
+</script>
+</body>

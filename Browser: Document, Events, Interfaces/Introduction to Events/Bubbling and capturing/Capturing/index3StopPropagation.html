@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+
+<body>
+
+<!-- Capturing + Bubbling phase -->
+<div id="outerDiv">
+    <button id="innerButton">Click Me</button>
+</div>
+
+<script>
+    const outerDiv = document.getElementById("outerDiv");
+    const innerButton = document.getElementById("innerButton");
+
+    // If we stop the propagation in the outer element during the capturing phase ->
+    // no more event phases will take
+    outerDiv.addEventListener(
+        "click",
+        function(event) {
+            console.log("Outer div clicked");
+            event.stopPropagation();
+        },
+        {
+            capture: true
+        }
+    );
+
+    // It's not executed, since it's stopped before
+    innerButton.addEventListener("click",
+        function(event) {
+            console.log("Inner button clicked - Capturing phase - event.target.tagName " + event.target.tagName);
+            console.log(`event.eventPhase: ${event.eventPhase}`);
+        },
+        {
+            capture: true
+        }
+    );
+
+    // It's not executed, since it's stopped before
+    innerButton.addEventListener("click",
+        function(event) {
+            console.log("Inner button clicked - Bubbling phase - event.target.tagName " + event.target.tagName);
+            console.log(`event.eventPhase: ${event.eventPhase}`);
+        }
+    );
+
+</script>
+
+</body>

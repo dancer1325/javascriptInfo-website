@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<!-- 1. addEventListener() without configuring options -->
+<!-- By default, it's not removed, and it will listen forever-->
+<input type="button" id="elem" value="Click me">
+<script>
+    elem.addEventListener(
+        'click',
+        function() {
+            alert('addEventListener() without configuring options ');
+        }
+    )
+</script>
+
+
+
+</br>
+
+
+
+<!-- 2. addEventListener() configuring options.once -->
+<!-- addEventListener(,, once:true) -->
+<input type="button" id="elemTwo" value="Click me">
+<script>
+    elemTwo.addEventListener(
+        'click',
+        function() {
+            alert('Event handler via addEventListener');
+        },
+        {
+            once: true,  // Once the event is triggered -> listener removed === will NOT be executed anymore
+            //capture:      // Bubbling and capturing section
+            //passive: true   //  Skip calling event's preventDefault()
+        }
+    )
+</script>
+
+
+
+</br>
+
+
+
+<!-- 3. removeEventListener() -->
+<!-- 3.1 If you pass != arguments -> it will not match with the event handler === not removed -->
+<input type="button" id="elemThree" value="Click me">
+<script>
+    elemThree.addEventListener(
+        'click',
+        function() {
+            alert('addEventListener() trying without succeed, to remove an event handler ');
+        }
+    );
+    elemThree.removeEventListener(
+        'click',
+        function() {        // It doesn't match with the function's argument of addEventListener  --> event handler not removed
+            alert('removeEventListener() trying without succeed, to remove an event handler ');
+        }
+    )
+</script>
+
+<!-- 3.2 Pass same arguments -> it will match with the event handler === removed -->
+<input type="button" id="elementFour" value="Click me">
+<script>
+    // Extracted the function, to be able to identify as the same
+    function sameFunction() {
+        alert('addEventListener() with succeed removing the event handler ');
+    };
+    elementFour.addEventListener(
+        'click',
+        sameFunction
+    );
+    elementFour.removeEventListener(
+        'click',
+        sameFunction
+    )
+</script>
+
+
+
+</br>
+
+
+
+<!-- 4. Add several addEventListener() + (via HTML attribute or DOM property)/ HTML element -- all will be working -->
+<input type="button" id="elemFive" value="Click me">
+<script>
+    function handler1() {
+        alert('Via addEventListener - handler1');
+    };
+
+    function handler2() {
+        alert('Via addEventListener - handler2');
+    }
+
+    elemFive.onclick = () => alert("Via DOM property");
+    elemFive.addEventListener("click", handler1);
+    elemFive.addEventListener("click", handler2);
+</script>
+
+
+
+</br>
+
+
+
+<!-- 5. There are certain events, which just accepts `addEventListener()` -->
+<script>
+    document.onDOMContentLoaded = function() {
+        alert("onDOMContentLoaded - via DOM property");
+    };
+    document.addEventListener("DOMContentLoaded", function() {
+        alert("DOMContentLoaded - via addEventListener()");
+    });
+</script>
+
