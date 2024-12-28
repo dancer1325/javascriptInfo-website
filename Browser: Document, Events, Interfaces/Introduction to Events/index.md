@@ -1,3 +1,7 @@
 # Introduction to Events
 
-An introduction to browser events, event properties and handling patterns.
+* goal
+  * introduction to
+    * browser events,
+    * event properties
+    * handling patterns
