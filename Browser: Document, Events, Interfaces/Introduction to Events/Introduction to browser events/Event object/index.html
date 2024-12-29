@@ -11,3 +11,7 @@
         alert("Coordinates: " + event.clientX + ":" + event.clientY);
     };
 </script>
+
+<!-- 2. event object can ALSO be used | HTML attribute
+browser will read it as       `function(event) { alert(event.type) }` -->
+<input type="button" onclick="alert(event.type)" value="Event type">

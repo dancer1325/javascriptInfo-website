@@ -3,6 +3,9 @@
 <!-- 1.Assign an event handler via HTML attribute -->
 <!-- 1.1 Inside the event handler, ' must be used  -->
 <input value="Click me" onclick="alert('Click!')" type="button">
+<!-- " do NOT work -->
+<!--<input value="Click me" onclick="alert("Click!")" type="button">-->
+<!-- NOT case-sensitive -->
 <input value="Click me NO case sensitive" oNcLiCK="alert('Click!')" type="button">
 
 <!-- 1.2 Abstract by script into HTML-->
@@ -24,7 +27,7 @@
 
 <!-- 2.Assign an event handler via DOM property -->
 
-<input id="elem" type="button" value="Click me">
+<input id="elem" type="button" value="Click me DOM property">
 <!-- Here!! Function declaration, not execution -->
 <script>
     elem.onclick = function() {
@@ -43,4 +46,12 @@
     elem2.onclick = function() { // overwrites the existing handler
         alert('Overwritten event handler'); // only this will be shown
     };
+</script>
+
+<br>
+
+<!-- 4. remove event handler  -->
+<input type="button" id="elem3" onclick="alert('Event handler removed NOT triggered')" value="onclick NOT triggered, because it's removed">
+<script>
+    elem3.onclick = null;
 </script>
