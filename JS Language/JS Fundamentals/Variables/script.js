@@ -1,17 +1,17 @@
-//                                              Declare and assign in different steps
+//                                              Declare and assign | DIFFERENT steps
 let message;
 message = 'Hello!';
 console.log("Declare and assign in different steps - " + message);
 message = 'Hello reassigned';
 console.log("Declare and assign in different steps - " + message);
 
-//                                             Declare and assign in the same step
+//                                             Declare and assign | SAME step
 let messageTwo = 'Hello!'; // define the variable and assign the value
 console.log("Declare and assign in the same step - " + messageTwo);
 
-//                                              Declare multiple variables in the same line
+//                                              Declare and assign MULTIPLE variables | SAME line
 let user = 'John', age = 25, messageAnother = 'Hello';
-// Although it's possible -> recommended to do it via multilines
+// Although it's possible -> recommended to do it -- via -- MULTIPLE lines
 // Alternative 1    -- applying indentation --
 let userTwo = 'JohnTwo',
     ageTwo = 52,
@@ -21,13 +21,13 @@ let userTwoTwo = 'JohnTwo'
     , ageTwoTwo = 52
     , messageTwoTwo = 'Hello - Two';
 
-//                                              Copy variable's data to another variable
+//                                              Copy variable's data -- to -- ANOTHER variable
 let hello = 'Hello world!';
 let messageThree = hello;
 console.log("Copy variable data -- " + hello);
 console.log("Copy variable data -- " + messageThree);
 
-//                                              Declare twice the same variable
+//                                              Declare 2 times the SAME variable
 let variableDeclaredTwice;
 //let variableDeclaredTwice;      // Error in runtime
 
@@ -38,7 +38,7 @@ console.log("Variable naming - $ " + $ + " _ " + _);
 //let 1a;         // Cannot start with a digit   -- error previous to run
 //let my-name;    // hyphens '-' aren't allowed in the name  -- error previous to run
 let apple = "apple";
-let APPLE = "APPLE";    // Case-sensitive
+let APPLE = "APPLE";    // Case-sensitive -> != PREVIOUS one
 console.log("Variable naming - apple " + apple + " APPLE " + APPLE);
 let имя = '...';  // non-latin letters are allowed, but not recommended
 let 我 = '...';   // non-latin letters are allowed, but not recommended
@@ -54,7 +54,6 @@ const COLOR_GREEN = "#0F0";
 const COLOR_BLUE = "#00F";
 const COLOR_ORANGE = "#FF7F00";
 
-
-
-
-
+// WITHOUT `use strict` -> declare a variable can be done WITHOUT using a keyword
+num = 5;
+console.log(num)
