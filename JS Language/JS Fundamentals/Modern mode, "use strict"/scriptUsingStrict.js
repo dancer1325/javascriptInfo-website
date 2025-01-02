@@ -20,7 +20,7 @@ const anotherUser = {name:'Sacha'};
 Object.preventExtensions(anotherUser);
 //anotherUser.age = 32;      // Error got in execution time
 
-// 1.3.1 primitive variables can not be extended
+// 1.3.1 primitive variables can NOT be extended
 const anotherName = "Alfredo";
 //anotherName.anotherProperty = false     // Error got in execution time
 
