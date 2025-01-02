@@ -1,10 +1,16 @@
 <!doctype html>
+
+<!-- regular script == NOT require type="module" specification -->
 <script>
+  // ONLY declare the async function imported
   async function load() {
-    let say = await import('./say.js');
+    let say = await import('./say.js'); // await    because returns a Promise<ModuleObject>
+    // contains ALL it's exports
     say.hi(); // Hello!
     say.bye(); // Bye!
     say.default(); // Module loaded (export default)!
   }
 </script>
+
+<!-- evaluate the function | event handler -->
 <button onclick="load()">Click me</button>
