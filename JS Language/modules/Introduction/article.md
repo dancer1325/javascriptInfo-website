@@ -1,264 +1,116 @@
 
 # Modules, introduction
 
-As our application grows bigger, we want to split it into multiple files, so called "modules". A module may contain a class or a library of functions for a specific purpose.
+* module := file(s) / 👀fulfil a specific purpose 👀 
+  * file(s) == [1! class, multiple files] 👀
+  * 1 module == 1 script
+    * see [Core module features](#core-module-features)
+  * uses
+    * | application is getting bigger
+      * → split it into modules
 
-For a long time, JavaScript existed without a language-level module syntax. That wasn't a problem, because initially scripts were small and simple, so there was no need.
-
-But eventually scripts became more and more complex, so the community invented a variety of ways to organize code into modules, special libraries to load modules on demand.
-
-To name some (for historical reasons):
-
-- [AMD](https://en.wikipedia.org/wiki/Asynchronous_module_definition) -- one of the most ancient module systems, initially implemented by the library [require.js](https://requirejs.org/).
-- [CommonJS](https://wiki.commonjs.org/wiki/Modules/1.1) -- the module system created for Node.js server.
-- [UMD](https://github.com/umdjs/umd) -- one more module system, suggested as a universal one, compatible with AMD and CommonJS.
-
-Now these all slowly became a part of history, but we still can find them in old scripts.
-
-The language-level module system appeared in the standard in 2015, gradually evolved since then, and is now supported by all major browsers and in Node.js. So we'll study the modern JavaScript modules from now on.
+* History
+  * | beginning 
+    * NO exist
+      * Reason: 🧠 Scripts were small and simple 🧠
+  * 👀FIRST module definitions 👀
+    * [AMD](https://en.wikipedia.org/wiki/Asynchronous_module_definition)
+    * [CommonJS](https://wiki.commonjs.org/wiki/Modules/1.1)
+    * [UMD](https://github.com/umdjs/umd)
+  * | 2015
+    * [ECMAScript](https://nodejs.org/api/esm.html#modules-ecmascript-modules)
+      * 👀Current one 👀
+      * supported by
+        * [browsers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#browser_compatibility)
+        * NodeJs
 
 ## What is a module?
 
-A module is just a file. One script is one module. As simple as that.
+* module1 ← can be loaded → module2
+  * `export`
+    * := directive /
+      * allows
+        * 👀using variables & functions outside the current module 👀
+  * `import`
+    * := directive /
+      * allows
+        * 👀using variables & functions from other modules 👀
+  * PREVIOUS directives work
+    * ⚠️ONLY -- via -- HTTP ⚠️
+      * -> if you want to test modules, use a local web-server
+        * [static-server](https://www.npmjs.com/package/static-server#getting-started)
+        * your IDE's "live server" capability
+          * _Example:_ [VSC's Live Server Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+    * ❌NOT -- via -- locally ❌
+      * locally == `file://PathInYourComputer` | browser
 
-Modules can load each other and use special directives `export` and `import` to interchange functionality, call functions of one module from another one:
-
-- `export` keyword labels variables and functions that should be accessible from outside the current module.
-- `import` allows the import of functionality from other modules.
-
-For instance, if we have a file `sayHi.js` exporting a function:
-
-```js
-// 📁 sayHi.js
-export function sayHi(user) {
-  alert(`Hello, ${user}!`);
-}
-```
-
-...Then another file may import and use it:
-
-```js
-// 📁 main.js
-import {sayHi} from './sayHi.js';
-
-alert(sayHi); // function...
-sayHi('John'); // Hello, John!
-```
-
-The `import` directive loads the module by path `./sayHi.js` relative to the current file, and assigns exported function `sayHi` to the corresponding variable.
-
-Let's run the example in-browser.
-
-As modules support special keywords and features, we must tell the browser that a script should be treated as a module, by using the attribute `<script type="module">`.
-
-Like this:
-
-[codetabs src="say" height="140" current="index.html"]
-
-The browser automatically fetches and evaluates the imported module (and its imports if needed), and then runs the script.
-
-```warn header="Modules work only via HTTP(s), not locally"
-If you try to open a web-page locally, via `file://` protocol, you'll find that `import/export` directives don't work. Use a local web-server, such as [static-server](https://www.npmjs.com/package/static-server#getting-started) or use the "live server" capability of your editor, such as VS Code [Live Server Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) to test modules.
-```
+* _Example:_ [here](importThroughAnotherFile)
+  * open index.html | browser
 
 ## Core module features
 
-What's different in modules, compared to "regular" scripts?
+* VALID | 
+  * browser JS or
+  * server-side JS
 
-There are core features, valid both for browser and server-side JavaScript.
+### ALWAYS "use strict"
 
-### Always "use strict"
+* see ["use strict"](/JS%20Language/JS%20Fundamentals/Modern%20mode,%20%22use%20strict%22)
 
-Modules always work in strict mode. E.g. assigning to an undeclared variable will give an error.
+* _Example:_ if you assign to an undeclared variable -> will give an error
 
-```html run
-<script type="module">
-  a = 5; // error
-</script>
-```
+    ```html run
+    <script type="module">
+      a = 5; // error
+    </script>
+    ```
 
 ### Module-level scope
 
-Each module has its own top-level scope. In other words, top-level variables and functions from a module are not seen in other scripts.
+* ⚠️OWN top-level scope / EACH module ⚠️
+  * == ❌module’s top-level variables & functions — are NOT seen — | OTHER modules ❌
+    * == top-level module's uses
+      * initialization
+        * Reason: 🧠 [1! evaluation](#module-code-is-evaluated-only--first-time-imported) 🧠
+      * creation of module-specific internal data structures
+  * | JS level
+    * == DIFFERENT ".js"
+    * → 👀you need to use `export` & `import` 👀
+    * _Examples:_
+      * [here failing](scopes.view)
+      * [here working](scopes-working.view)
+  * | HTML
+    * == DIFFERENT `<script type="module">`
+    * _Example:_ [here](module-level%20scope)
 
-In the example below, two scripts are imported, and `hello.js` tries to use `user` variable declared in `user.js`. It fails, because it's a separate module (you'll see the error in the console):
+### module code is evaluated ONLY | first time, imported
 
-[codetabs src="scopes" height="140" current="index.html"]
+* ⚠️module code is evaluated ONLY 1! | first time, it’s imported ⚠️
+  * == 👀if the SAME module is imported | multiple OTHER modules → executed 1! 👀
+    * _Example:_[here](moduleCodeIsEvaluated1Time)
+    * -> exports are given | ALL further imports
+      * _Example:_ [here](sameExportGivenToAllImporters)
+      * if you need SOMETHING / callable MULTIPLE times -> export it as a function, like we did with `sayHi` above.
+  * → allow us
+    * 👀 split module's final functionality -- between -- SEVERAL modules 👀
+      * use case == pattern
+        * module / provides configuration + modules / feeds the configuration + modules / consume them
+      * _Example:_ [Here](configureModulesViaSeveral)
 
-Modules should `export` what they want to be accessible from outside and `import` what they need.
+### `import.meta`
 
-- `user.js` should export the `user` variable.
-- `hello.js` should import it from `user.js` module.
+* == information -- about the -- CURRENT module /
+  * -- depends on the -- environment (.js / .mjs or .html)
+    * | browser (== .html)
+      * == URL of the script
 
-In other words, with modules we use import/export instead of relying on global variables.
+### "this" | top-level modules, is undefined 
 
-This is the correct variant:
-
-[codetabs src="scopes-working" height="140" current="hello.js"]
-
-In the browser, if we talk about HTML pages, independent top-level scope also exists for each `<script type="module">`.
-
-Here are two scripts on the same page, both `type="module"`. They don't see each other's top-level variables:
-
-```html run
-<script type="module">
-  // The variable is only visible in this module script
-  let user = "John";
-</script>
-
-<script type="module">
-  *!*
-  alert(user); // Error: user is not defined
-  */!*
-</script>
-```
-
-```smart
-In the browser, we can make a variable window-level global by explicitly assigning it to a `window` property, e.g. `window.user = "John"`. 
-
-Then all scripts will see it, both with `type="module"` and without it. 
-
-That said, making such global variables is frowned upon. Please try to avoid them.
-```
-
-### A module code is evaluated only the first time when imported
-
-If the same module is imported into multiple other modules, its code is executed only once, upon the first import. Then its exports are given to all further importers.
-
-The one-time evaluation has important consequences, that we should be aware of. 
-
-Let's see a couple of examples.
-
-First, if executing a module code brings side-effects, like showing a message, then importing it multiple times will trigger it only once -- the first time:
-
-```js
-// 📁 alert.js
-alert("Module is evaluated!");
-```
-
-```js
-// Import the same module from different files
-
-// 📁 1.js
-import `./alert.js`; // Module is evaluated!
-
-// 📁 2.js
-import `./alert.js`; // (shows nothing)
-```
-
-The second import shows nothing, because the module has already been evaluated.
-
-There's a rule: top-level module code should be used for initialization, creation of module-specific internal data structures. If we need to make something callable multiple times - we should export it as a function, like we did with `sayHi` above.
-
-Now, let's consider a deeper example.
-
-Let's say, a module exports an object:
-
-```js
-// 📁 admin.js
-export let admin = {
-  name: "John"
-};
-```
-
-If this module is imported from multiple files, the module is only evaluated the first time, `admin` object is created, and then passed to all further importers.
-
-All importers get exactly the one and only `admin` object:
-
-```js
-// 📁 1.js
-import {admin} from './admin.js';
-admin.name = "Pete";
-
-// 📁 2.js
-import {admin} from './admin.js';
-alert(admin.name); // Pete
-
-*!*
-// Both 1.js and 2.js reference the same admin object
-// Changes made in 1.js are visible in 2.js
-*/!*
-```
-
-As you can see, when `1.js` changes the `name` property in the imported `admin`, then `2.js` can see the new `admin.name`.
-
-That's exactly because the module is executed only once. Exports are generated, and then they are shared between importers, so if something changes the `admin` object, other importers will see that.
-
-**Such behavior is actually very convenient, because it allows us to *configure* modules.**
-
-In other words, a module can provide a generic functionality that needs a setup. E.g. authentication needs credentials. Then it can export a configuration object expecting the outer code to assign to it.
-
-Here's the classical pattern:
-1. A module exports some means of configuration, e.g. a configuration object.
-2. On the first import we initialize it, write to its properties. The top-level application script may do that.
-3. Further imports use the module.
-
-For instance, the `admin.js` module may provide certain functionality (e.g. authentication), but expect the credentials to come into the `config` object from outside:
-
-```js
-// 📁 admin.js
-export let config = { };
-
-export function sayHi() {
-  alert(`Ready to serve, ${config.user}!`);
-}
-```
-
-Here, `admin.js` exports the `config` object (initially empty, but may have default properties too).
-
-Then in `init.js`, the first script of our app, we import `config` from it and set `config.user`:
-
-```js
-// 📁 init.js
-import {config} from './admin.js';
-config.user = "Pete";
-```
-
-...Now the module `admin.js` is configured. 
-
-Further importers can call it, and it correctly shows the current user:
-
-```js
-// 📁 another.js
-import {sayHi} from './admin.js';
-
-sayHi(); // Ready to serve, *!*Pete*/!*!
-```
-
-
-### import.meta
-
-The object `import.meta` contains the information about the current module.
-
-Its content depends on the environment. In the browser, it contains the URL of the script, or a current webpage URL if inside HTML:
-
-```html run height=0
-<script type="module">
-  alert(import.meta.url); // script URL
-  // for an inline script - the URL of the current HTML-page
-</script>
-```
-
-### In a module, "this" is undefined
-
-That's kind of a minor feature, but for completeness we should mention it.
-
-In a module, top-level `this` is undefined.
-
-Compare it to non-module scripts, where `this` is a global object:
-
-```html run height=0
-<script>
-  alert(this); // window
-</script>
-
-<script type="module">
-  alert(this); // undefined
-</script>
-```
+* _Example:_ [here](thisTopLevelModuleIsUndefined)
 
 ## Browser-specific features
 
+* TODO:
 There are also several browser-specific differences of scripts with `type="module"` compared to regular ones.
 
 You may want to skip this section for now if you're reading for the first time, or if you don't use JavaScript in a browser.

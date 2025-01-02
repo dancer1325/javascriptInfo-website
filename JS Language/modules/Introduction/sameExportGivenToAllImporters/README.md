@@ -1,2 +1,2 @@
 # Same exports objects given to all importers
-* If the export object is imported in several importers -> they share the same reference
+* if the `export` object is imported | SEVERAL importers -> share the SAME reference

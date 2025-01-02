@@ -3,6 +3,10 @@
 <!-- If just importer2.js is added -> it doesn't realize about the other change -->
 <!--<script type="module" src="importer2.js"></script>-->
 
+<!-- Importing both in this order, importer2 does NOT realizes about the change in the other -->
+<!--<script type="module" src="importer2.js"></script>
+<script type="module" src="importer1.js"></script>-->
+
 <!-- Importing both in this order, second script realizes about the change in the other -->
 <script type="module" src="importer1.js"></script>
 <script type="module" src="importer2.js"></script>

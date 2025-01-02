@@ -1,3 +1,3 @@
-# Configure modules via several ones
-Delegate the functionality between several modules, taking advantage of being the module
-code evaluated 1!
+# Configure modules -- via -- SEVERAL ones
+
+* == module's final functionality -- is delegated between -- SEVERAL modules
