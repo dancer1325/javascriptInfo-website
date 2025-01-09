@@ -202,32 +202,7 @@ alert( arr.concat(arrayLike) ); // 1,2,something,else
 
 ## Iterate: forEach
 
-The [arr.forEach](mdn:js/Array/forEach) method allows to run a function for every element of the array.
-
-The syntax:
-```js
-arr.forEach(function(item, index, array) {
-  // ... do something with an item
-});
-```
-
-For instance, this shows each element of the array:
-
-```js run
-// for each element call alert
-["Bilbo", "Gandalf", "Nazgul"].forEach(alert);
-```
-
-And this code is more elaborate about their positions in the target array:
-
-```js run
-["Bilbo", "Gandalf", "Nazgul"].forEach((item, index, array) => {
-  alert(`${item} is at index ${index} in ${array}`);
-});
-```
-
-The result of the function (if it returns any) is thrown away and ignored.
-
+* [.forEach(function(item, index, array)](mdn:js/Array/forEach)
 
 ## Searching in array
 
