@@ -1,5 +1,6 @@
 # Destructuring assignment
 
+* TODO:
 The two most used data structures in JavaScript are `Object` and `Array`.
 
 - Objects allow us to create a single entity that stores data items by key.

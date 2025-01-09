@@ -1,6 +1,7 @@
 
 # Variable scope, closure
 
+* TODO:
 JavaScript is a very function-oriented language. It gives us a lot of freedom. A function can be created at any moment, passed as an argument to another function, and then called from a totally different place of code later.
 
 We already know that a function can access variables outside of it ("outer" variables).

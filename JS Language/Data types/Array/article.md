@@ -1,5 +1,6 @@
 # Arrays
 
+* TODO:
 Objects allow you to store keyed collections of values. That's fine.
 
 But quite often we find that we need an *ordered collection*, where we have a 1st, a 2nd, a 3rd element and so on. For example, we need that to store a list of something: users, goods, HTML elements etc.
