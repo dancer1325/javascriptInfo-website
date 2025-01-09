@@ -231,8 +231,6 @@ The result of the function (if it returns any) is thrown away and ignored.
 
 ## Searching in array
 
-Now let's cover methods that search in an array.
-
 ### indexOf/lastIndexOf and includes
 
 The methods [arr.indexOf](mdn:js/Array/indexOf) and [arr.includes](mdn:js/Array/includes) have the similar syntax and do essentially the same as their string counterparts, but operate on items instead of characters:
@@ -276,7 +274,6 @@ alert( arr.indexOf(NaN) ); // -1 (wrong, should be 0)
 alert( arr.includes(NaN) );// true (correct)
 ```
 That's because `includes` was added to JavaScript much later and uses the more up-to-date comparison algorithm internally.
-````
 
 ### find and findIndex/findLastIndex
 
@@ -341,58 +338,17 @@ alert(users.findLastIndex(user => user.name == 'John')); // 3
 
 ### filter
 
-The `find` method looks for a single (first) element that makes the function return `true`.
-
-If there may be many, we can use [arr.filter(fn)](mdn:js/Array/filter).
-
-The syntax is similar to `find`, but `filter` returns an array of all matching elements:
-
-```js
-let results = arr.filter(function(item, index, array) {
-  // if true item is pushed to results and the iteration continues
-  // returns empty array if nothing found
-});
-```
-
-For instance:
-
-```js run
-let users = [
-  {id: 1, name: "John"},
-  {id: 2, name: "Pete"},
-  {id: 3, name: "Mary"}
-];
-
-// returns array of the first two users
-let someUsers = users.filter(item => item.id < 3);
-
-alert(someUsers.length); // 2
-```
+* [.filter(function(item, index, array)): [ofResults]](mdn:js/Array/filter)
+  * vs `.find()`
+    * `.filter()` returns an `[]`
 
 ## Transform an array
 
-Let's move on to methods that transform and reorder an array.
-
 ### map
 
-The [arr.map](mdn:js/Array/map) method is one of the most useful and often used.
-
-It calls the function for each element of the array and returns the array of results.
-
-The syntax is:
-
-```js
-let result = arr.map(function(item, index, array) {
-  // returns the new value instead of item
-});
-```
-
-For instance, here we transform each element into its length:
-
-```js run
-let lengths = ["Bilbo", "Gandalf", "Nazgul"].map(item => item.length);
-alert(lengths); // 5,7,6
-```
+* [.map(function(item, index, array)): [ofResults]](mdn:js/Array/map) method 
+  * MOST useful & often used
+  * returns the array of results
 
 ### sort(fn)
 
