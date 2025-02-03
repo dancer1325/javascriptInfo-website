@@ -1,0 +1,17 @@
+<body>
+    <script>
+        function loadScript(src) {
+            // creates a <script> tag ==    NEW DYNAMIC tag
+            let script = document.createElement('script');
+            script.src = src;
+            // <script> tag append it | page
+            document.head.append(script);
+            // this causes the script with given src to start loading and run when complete
+        };
+
+        //  async, because starts loading NOW, but runs later (TODO: ? comprehend)
+        loadScript('/.one.js');         // TODO: Fix it
+
+        console.log('run it BEFORE, ALTHOUGH line code AFTER');
+    </script>
+</body>

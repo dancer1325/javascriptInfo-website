@@ -1,55 +1,15 @@
-
-
 # Introduction: callbacks
 
-```warn header="We use browser methods in examples here"
-To demonstrate the use of callbacks, promises and other abstract concepts, we'll be using some browser methods: specifically, loading scripts and performing simple document manipulations.
+* functions / schedule *asynchronous* actions
+  * == actions / 
+    * NOW, we initiate
+    * LATER, they finish
+  * _Example:_ 
+    * `setTimeout` function
+    * load scripts and modules
+    * [index.html](index.html)
 
-If you're not familiar with these methods, and their usage in the examples is confusing, you may want to read a few chapters from the [next part](/document) of the tutorial.
-
-Although, we'll try to make things clear anyway. There won't be anything really complex browser-wise.
-```
-
-Many functions are provided by JavaScript host environments that allow you to schedule *asynchronous* actions. In other words, actions that we initiate now, but they finish later.
-
-For instance, one such function is the `setTimeout` function.
-
-There are other real-world examples of asynchronous actions, e.g. loading scripts and modules (we'll cover them in later chapters).
-
-Take a look at the function `loadScript(src)`, that loads a script with the given `src`:
-
-```js
-function loadScript(src) {
-  // creates a <script> tag and append it to the page
-  // this causes the script with given src to start loading and run when complete
-  let script = document.createElement('script');
-  script.src = src;
-  document.head.append(script);
-}
-```
-
-It inserts into the document a new, dynamically created, tag `<script src="…">` with the given `src`. The browser automatically starts loading it and executes when complete.
-
-We can use this function like this:
-
-```js
-// load and execute the script at the given path
-loadScript('/my/script.js');
-```
-
-The script is executed "asynchronously", as it starts loading now, but runs later, when the function has already finished.
-
-If there's any code below `loadScript(…)`, it doesn't wait until the script loading finishes.
-
-```js
-loadScript('/my/script.js');
-// the code below loadScript
-// doesn't wait for the script loading to finish
-// ...
-```
-
-Let's say we need to use the new script as soon as it loads. It declares new functions, and we want to run them.
-
+// TODO:
 But if we do that immediately after the `loadScript(…)` call, that wouldn't work:
 
 ```js
@@ -60,7 +20,10 @@ newFunction(); // no such function!
 */!*
 ```
 
-Naturally, the browser probably didn't have time to load the script. As of now, the `loadScript` function doesn't provide a way to track the load completion. The script loads and eventually runs, that's all. But we'd like to know when it happens, to use new functions and variables from that script.
+Naturally, the browser probably didn't have time to load the script. 
+As of now, the `loadScript` function doesn't provide a way to track the load completion. 
+The script loads and eventually runs, that's all. 
+But we'd like to know when it happens, to use new functions and variables from that script.
 
 Let's add a `callback` function as a second argument to `loadScript` that should execute when the script loads:
 
@@ -198,7 +161,8 @@ So the single `callback` function is used both for reporting errors and passing 
 
 ## Pyramid of Doom
 
-At first glance, it looks like a viable approach to asynchronous coding. And indeed it is. For one or maybe two nested calls it looks fine.
+At first glance, it looks like a viable approach to asynchronous coding. 
+And indeed it is. For one or maybe two nested calls it looks fine.
 
 But for multiple asynchronous actions that follow one after another, we'll have code like this:
 
@@ -303,10 +267,14 @@ function step3(error, script) {
 
 See? It does the same thing, and there's no deep nesting now because we made every action a separate top-level function.
 
-It works, but the code looks like a torn apart spreadsheet. It's difficult to read, and you probably noticed that one needs to eye-jump between pieces while reading it. That's inconvenient, especially if the reader is not familiar with the code and doesn't know where to eye-jump.
+It works, but the code looks like a torn apart spreadsheet.
+It's difficult to read, and you probably noticed that one needs to eye-jump between pieces while reading it. 
+That's inconvenient, especially if the reader is not familiar with the code and doesn't know where to eye-jump.
 
-Also, the functions named `step*` are all of single use, they are created only to avoid the "pyramid of doom." No one is going to reuse them outside of the action chain. So there's a bit of namespace cluttering here.
+Also, the functions named `step*` are all of single use, they are created only to avoid the "pyramid of doom." 
+No one is going to reuse them outside of the action chain. So there's a bit of namespace cluttering here.
 
 We'd like to have something better.
 
-Luckily, there are other ways to avoid such pyramids. One of the best ways is to use "promises", described in the next chapter.
+Luckily, there are other ways to avoid such pyramids. 
+One of the best ways is to use "promises", described in the next chapter.
